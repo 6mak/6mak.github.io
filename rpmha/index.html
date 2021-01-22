@@ -1,65 +1,59 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<link rel="icon" href="../imgs/rpmha2.png" type="image/png">
-		<title>Fiches RPMHA</title>
-		<style type="text/css">
-			@font-face {
-				font-family: Segoemak;
-				src: url(../seguibl.ttf);
-			}
-			html {
-				background-color: #262626;
-			}
-			table {
-				width: 40vh;
-				margin-left: auto;
-				margin-right: auto;
-			}
-			img {
-				width: 15vh;
-			}
-			td {
-				text-align: center;
-				font-family: Segoemak;
-				font-size: 3vh;
-				color: #FFF;
-			}
-			button {
-				margin-top: 1vh;
-				background-color: #404040;
-				border-radius: 20px;
-				padding: 2px 20px;
-				border-color: #606060;
-				border-style: solid;
-				cursor: pointer;
-				font-family: Segoemak;
-				color: #FFF;
-				font-size: 3vh;
-			}
-			input {
-				background-color: #404040;
-				color: #FFF;
-				border-style: solid;
-				border-radius: 5px;
-				font-size: 3vh;
-				margin-top: 3vh;
-				width: 30vh;
-				text-align: center;
-				margin-bottom: 4vh;
-			}
-		</style>
-	</head>
-	<body>
-		<table>
-			<tr><td><img src="../imgs/rpmha2.png"></td></tr>
-			<tr><td>Fiches perso</td></tr>
-			<tr><td><input id="nomperso" type="text" placeholder="Nom du perso"></td></tr>
-		</table>
-		<table id="output"></table>
-	</body>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript">
+<link rel="icon" href="../imgs/rpmha2.png" type="image/png">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<title>Fiches RPMHA</title>
+<style type="text/css">
+	@font-face {
+		font-family: Segoemak;
+		src: url(../seguibl.ttf);
+	}
+	html {
+		background-color: #262626;
+	}
+	table {
+		width: 40vh;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	img {
+		width: 15vh;
+	}
+	td {
+		text-align: center;
+		font-family: Segoemak;
+		font-size: 3vh;
+		color: #FFF;
+	}
+	button {
+		margin-top: 1vh;
+		background-color: #404040;
+		border-radius: 20px;
+		padding: 2px 20px;
+		border-color: #606060;
+		border-style: solid;
+		cursor: pointer;
+		font-family: Segoemak;
+		color: #FFF;
+		font-size: 3vh;
+	}
+	input {
+		background-color: #404040;
+		color: #FFF;
+		border-style: solid;
+		border-radius: 5px;
+		font-size: 3vh;
+		margin-top: 3vh;
+		width: 30vh;
+		text-align: center;
+		margin-bottom: 4vh;
+	}
+</style>
+<table>
+	<tr><td><img src="../imgs/rpmha2.png"></td></tr>
+	<tr><td>Fiches perso</td></tr>
+	<tr><td><input id="nomperso" type="text" placeholder="Nom du perso"></td></tr>
+</table>
+<table id="output"></table>
+<script type="text/javascript">
 
 		allpersos = ["Nash","Retsam","Reversal"]
 		alltags = ["nash saro wapen","retsam","reversal chizome versuro"]
@@ -80,7 +74,6 @@
 		});
 
 		function showFiche(name){
-			document.getElementById("output").innerHTML = "<tr><td>"+name+"</td></tr>";
+			$("#output").load("fiches/"+name+".html");
 		}
 	</script>
-</html>
