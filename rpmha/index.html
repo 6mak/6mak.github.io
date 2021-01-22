@@ -67,7 +67,7 @@
 		allpersos.forEach(searcher);
 	});
 	function searcher(ele){
-		if (ele.toLowerCase().includes(document.getElementById("nomperso").value)){
+		if (ele.toLowerCase().includes(document.getElementById("nomperso").value.toLowerCase())){
 			document.getElementById("output").innerHTML = document.getElementById("output").innerHTML + "<tr><td><a><button>"+ele+"</button></a></td></tr>";
 		}
 	}
