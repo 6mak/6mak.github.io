@@ -1,1 +1,74 @@
-e
+<link rel="icon" href="../imgs/rpmha2.png" type="image/png">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<title>Fiches RPMHA</title>
+<style type="text/css">
+	@font-face {
+		font-family: Segoemak;
+		src: url(../seguibl.ttf);
+	}
+	html {
+		background-color: #262626;
+	}
+	table {
+		width: 40vh;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	img {
+		width: 15vh;
+	}
+	td {
+		text-align: center;
+		font-family: Segoemak;
+		font-size: 3vh;
+		color: #FFF;
+	}
+	button {
+		margin-top: 1vh;
+		background-color: #404040;
+		border-radius: 20px;
+		padding: 2px 40px;
+		border-color: #606060;
+		border-style: solid;
+		cursor: pointer;
+		font-family: Segoemak;
+		color: #FFF;
+		font-size: 3vh;
+	}
+	input {
+		background-color: #404040;
+		color: #FFF;
+		border-style: solid;
+		border-radius: 5px;
+		font-size: 3vh;
+		margin-top: 3vh;
+		width: 30vh;
+		text-align: center;
+	}
+	#output {
+		margin-top: 5vh;
+	}
+</style>
+<table>
+	<tr><td><img src="../imgs/rpmha2.png"></td></tr>
+	<tr><td>Fiches perso</td></tr>
+	<tr><td><input id="nomperso" type="text" placeholder="Nom du perso"></td></tr>
+</table>
+<table id="output">
+</table>
+<script type="text/javascript">
+	allpersos = ["Nash - Saro WAPEN","Retsam","Reversal - Chizome VERSURO"]
+	allpersos.forEach(tableinit);
+	function tableinit(ele){
+		document.getElementById("output").innerHTML = document.getElementById("output").innerHTML + "<tr><td><a><button>"+ele+"</button></a></td></tr>";
+	}
+	$("#nomperso").on("input",function(){
+		document.getElementById("output").innerHTML = "";
+		allpersos.forEach(searcher);
+	});
+	function searcher(ele){
+		if (ele.toLowerCase().includes(document.getElementById("nomperso").value)){
+			document.getElementById("output").innerHTML = document.getElementById("output").innerHTML + "<tr><td><a><button>"+ele+"</button></a></td></tr>";
+		}
+	}
+</script>
