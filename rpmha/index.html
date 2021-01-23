@@ -1,3 +1,5 @@
+<meta charset="UTF-8">
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 <link rel="icon" href="../imgs/rpmha2.png" type="image/png">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Fiches RPMHA</title>
@@ -61,32 +63,37 @@
 	}
 </style>
 <table>
-	<tr><td><img src="../imgs/rpmha2.png"></td></tr>
-	<tr><td>Fiches perso</td></tr>
+	<tr><td><img src="../imgs/rpmha2.png" onclick="showButtons()"></td></tr>
+	<tr><td onclick="showButtons()">Fiches perso</td></tr>
 	<tr><td><input id="nomperso" type="text" placeholder="Nom du perso"></td></tr>
 </table>
 <table id="output"></table>
 <script type="text/javascript">
+	allpersos = ["AngeD", "Agha3", "Agha5", "Agha7", "Agha8", "Agha9", "Agha10", "Agha11", "BoomBack", "CombattantD", "Delchalo", "EdgeBall", "Emerald", "ErasingLips", "Finnerwork", "Fluss", "Gackiant", "GardienneD", "GivenTouch", "Gyros", "Hakkan", "Hamsuke", "HideBack", "Hizrai", "Ivan", "Joker13", "King", "Lecky", "Lif", "Lipsika", "Meduse", "Mephisto", "Mindbird", "Motheruler", "MoveBack", "Nash", "NukeLeon", "Nyehehe", "Pebble", "penTesla", "Prisme", "Retsam", "Reversal", "Sank", "Sheerase", "Slash", "SmokeHelm", "Souverain", "Stasi", "StickMan", "Suka", "Swammer", "Tesu", "TurnTrap", "Twear", "Vampi", "VoidBack", "WaterQueen", "Wile", "Zoriv"];
+	alltags = ["AngeD", "Agha3", "Agha5", "Agha7", "Agha8", "Agha9", "Agha10", "Agha11", "BoomBack", "CombattantD", "Delchalo", "EdgeBall", "Emerald", "ErasingLips", "Finnerwork", "Fluss", "Gackiant", "GardienneD", "GivenTouch", "Gyros", "Hakkan", "Hamsuke", "HideBack", "Hizrai", "Ivan", "Joker13", "King", "Lecky", "Lif", "Lipsika", "Meduse", "Mephisto", "Mindbird", "Motheruler", "MoveBack", "Nash", "NukeLeon", "Nyehehe", "Pebble", "penTesla", "Prisme", "Retsam", "Reversal", "Sank", "Sheerase", "Slash", "SmokeHelm", "Souverain", "Stasi", "StickMan", "Suka", "Swammer", "Tesu", "TurnTrap", "Twear", "Vampi", "VoidBack", "WaterQueen", "Wile", "Zoriv"];
 
-		allpersos = ["Nash","Retsam","Reversal"]
-		alltags = ["nash saro wapen","retsam","reversal chizome versuro"]
+	function showButtons(){
 		content = "";
 		allpersos.forEach(function tableinit(ele){
-			content = content + "<tr><td><a><button onclick='showFiche(this.innerHTML)'>"+ele+"</button></a></td></tr>";
+		content = content + "<tr><td><a><button onclick='showFiche(this.innerHTML)'>"+ele+"</button></a></td></tr>";
 		});
 		document.getElementById("output").innerHTML = content;
+		document.getElementById("nomperso").value = "";
+	}
 
-		$("#nomperso").on("input",function(){
-			content = "";
-			allpersos.forEach(function searcher(ele){
-				if (alltags[allpersos.indexOf(ele)].toLowerCase().includes(document.getElementById("nomperso").value.toLowerCase())){
-					content = content + "<tr><td><a><button onclick='showFiche(this.innerHTML)'>"+ele+"</button></a></td></tr>";
-				}
-			});
-			document.getElementById("output").innerHTML = content;
+	showButtons();
+
+	$("#nomperso").on("input",function(){
+		content = "";
+		allpersos.forEach(function searcher(ele){
+			if (alltags[allpersos.indexOf(ele)].toLowerCase().includes(document.getElementById("nomperso").value.toLowerCase())){
+				content = content + "<tr><td><a><button onclick='showFiche(this.innerHTML)'>"+ele+"</button></a></td></tr>";
+			}
 		});
+		document.getElementById("output").innerHTML = content;
+	});
 
-		function showFiche(name){
-			$("#output").load("fiches/"+name+".html");
-		}
-	</script>
+	function showFiche(name){
+		$("#output").load("fiches/"+name+".html");
+	}
+</script>
