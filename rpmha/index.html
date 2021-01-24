@@ -48,18 +48,40 @@
 		text-align: center;
 		margin-bottom: 4vh;
 	}
+	#output .espace {
+		height: 5vh;
+	}
 	#output td {
 		font-size: 2vh;
 		width: 50%;
 	}
+	#output .espace td {
+		color: #a0a0a0;
+		font-size: 2.5vh;
+	}
 	#output img {
 		width: 10vh;
 	}
-	#output .espace {
-		height: 4vh;
+	.spangris {
+		color: #808080;
 	}
-	.espace td {
-		color: #a0a0a0;
+	.spanoran {
+		color: #FF8000;
+	}
+	.spanjaun {
+		color: #FFFF80;
+	}
+	.spanroug {
+		color: #FF0000;
+	}
+	.spanvert {
+		color: #00FF00;
+	}
+	.spanmax {
+		color: #00FFFF;
+	}
+	.spanbleu {
+		color: #0080FF;
 	}
 </style>
 <table>
@@ -69,8 +91,8 @@
 </table>
 <table id="output"></table>
 <script type="text/javascript">
-	allpersos = ["AngeD", "Agha3", "Agha5", "Agha7", "Agha8", "Agha9", "Agha10", "Agha11", "BoomBack", "CombattantD", "Delchalo", "EdgeBall", "Emerald", "ErasingLips", "Finnerwork", "Fluss", "Gackiant", "GardienneD", "GivenTouch", "Gyros", "Hakkan", "Hamsuke", "HideBack", "Hizrai", "Ivan", "Joker13", "King", "Lecky", "Lif", "Lipsika", "Meduse", "Mephisto", "Mindbird", "Motheruler", "MoveBack", "Nash", "NukeLeon", "Nyehehe", "Pebble", "penTesla", "Prisme", "Retsam", "Reversal", "Sank", "Sheerase", "Slash", "SmokeHelm", "Souverain", "Stasi", "StickMan", "Suka", "Swammer", "Tesu", "TurnTrap", "Twear", "Vampi", "VoidBack", "WaterQueen", "Wile", "Zoriv"];
-	alltags = ["AngeD", "Agha3", "Agha5", "Agha7", "Agha8", "Agha9", "Agha10", "Agha11", "BoomBack", "CombattantD", "Delchalo", "EdgeBall", "Emerald", "ErasingLips", "Finnerwork", "Fluss", "Gackiant", "GardienneD", "GivenTouch", "Gyros", "Hakkan", "Hamsuke", "HideBack", "Hizrai", "Ivan", "Joker13", "King", "Lecky", "Lif", "Lipsika", "Meduse", "Mephisto", "Mindbird", "Motheruler", "MoveBack", "Nash", "NukeLeon", "Nyehehe", "Pebble", "penTesla", "Prisme", "Retsam", "Reversal", "Sank", "Sheerase", "Slash", "SmokeHelm", "Souverain", "Stasi", "StickMan", "Suka", "Swammer", "Tesu", "TurnTrap", "Twear", "Vampi", "VoidBack", "WaterQueen", "Wile", "Zoriv"];
+	allpersos = ["Agha3", "Agha5", "Agha7", "Agha8", "Agha9", "Agha10", "Agha11", "AngeD", "BoomBack", "CombattantD", "Delchalo", "EdgeBall", "Emerald", "ErasingLips", "Finnerwork", "Fluss", "Gackiant", "GardienneD", "GivenTouch", "Gyros", "Hakkan", "Hamsuke", "HideBack", "Hizrai", "Ivan", "Joker13", "King", "Lecky", "Lif", "Lipsika", "Meduse", "Mephisto", "Mindbird", "Motheruler", "MoveBack", "Nash", "NukeLeon", "Nyehehe", "Pebble", "penTesla", "Prisme", "Retsam", "Reversal", "Sank", "Sheerase", "Slash", "SmokeHelm", "Souverain", "Stasi", "StickMan", "Suka", "Swammer", "Tesu", "TurnTrap", "Twear", "Vampi", "VoidBack", "WaterQueen", "Wile", "Zoriv"];
+	alltags = ["Agha3", "Agha5", "Agha7", "Agha8", "Agha9", "Agha10", "Agha11", "AngeD", "BoomBack", "CombattantD", "Delchalo", "EdgeBall", "Emerald", "ErasingLips", "Finnerwork", "Fluss", "Gackiant", "GardienneD", "GivenTouch", "Gyros", "Hakkan", "Hamsuke", "HideBack", "Hizrai", "Ivan", "Joker13", "King", "Lecky", "Lif", "Lipsika", "Meduse", "Mephisto", "Mindbird", "Motheruler", "MoveBack", "Nash", "NukeLeon", "Nyehehe", "Pebble", "penTesla", "Prisme", "Retsam", "Reversal", "Sank", "Sheerase", "Slash", "SmokeHelm", "Souverain", "Stasi", "StickMan", "Suka", "Swammer", "Tesu", "TurnTrap", "Twear", "Vampi", "VoidBack", "WaterQueen", "Wile", "Zoriv"];
 
 	function showButtons(){
 		content = "";
