@@ -169,6 +169,9 @@
 	}
 
 	.show {display:block;}
+	span {
+		font-family: Segoebl;
+	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div id="base-content"></div>
@@ -179,13 +182,7 @@
 	<p style="float: right;margin-right: 2vw;"><a href="https://linktr.ee/frenchbeatboxhouse" target="_blank">Linktree</a></p>
 </footer>
 <script type="text/javascript">
-	function switcher(rsn) {
-		if (document.getElementById(rsn).style.display == "block") {
-			document.getElementById(rsn).style.display = "none";
-		} else {
-			document.getElementById(rsn).style.display = "block";
-		}
-	}
+	$('#base-content').load("fr.html");
 
 	rsp = {
 		"compteur": "rs1",
@@ -198,6 +195,14 @@
 
 	if (Object.keys(rsp).includes(document.location.search.slice(1))) {
 		switcher(rsp[document.location.search.slice(1)]);
+	}
+
+	function switcher(rsn) {
+		if (document.getElementById(rsn).style.display == "block") {
+			document.getElementById(rsn).style.display = "none";
+		} else {
+			document.getElementById(rsn).style.display = "block";
+		}
 	}
 
 	function showmenu() {
@@ -222,6 +227,4 @@
 		$('#base-content').load(lng+".html");
 		setTimeout(function(){ document.getElementById("snackbar"+lng).className = document.getElementById("snackbar"+lng).className.replace("show", ""); }, 3000);
 	}
-
-	$('#base-content').load("fr.html");
 </script>
