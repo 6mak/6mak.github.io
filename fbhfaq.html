@@ -193,10 +193,6 @@
 		"fbhb": "rs6"
 	}
 
-	if (Object.keys(rsp).includes(document.location.search.slice(1))) {
-		switcher(rsp[document.location.search.slice(1)]);
-	}
-
 	function switcher(rsn) {
 		if (document.getElementById(rsn).style.display == "block") {
 			document.getElementById(rsn).style.display = "none";
@@ -226,5 +222,9 @@
 		document.getElementById("snackbar"+lng).className = "show";
 		$('#base-content').load(lng+".html");
 		setTimeout(function(){ document.getElementById("snackbar"+lng).className = document.getElementById("snackbar"+lng).className.replace("show", ""); }, 3000);
+	}
+
+	if (Object.keys(rsp).includes(document.location.search.slice(1))) {
+		switcher(rsp[document.location.search.slice(1)]);
 	}
 </script>
