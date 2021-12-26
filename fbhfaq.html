@@ -219,6 +219,7 @@
 
 	function langswitch(lng) {
 		document.getElementById("snackbar"+lng).className = "show";
+		$('#base-content').load(lng+".html");
 		setTimeout(function(){ document.getElementById("snackbar"+lng).className = document.getElementById("snackbar"+lng).className.replace("show", ""); }, 3000);
 	}
 
