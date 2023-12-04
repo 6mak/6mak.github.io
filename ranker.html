@@ -1,0 +1,150 @@
+<link rel="icon" href="imgs/flatmak.png" type="image/png">
+<title>Ranker</title>
+<style type="text/css">
+	@font-face {
+		font-family: Segoemak;
+		src: url(SegoeUI.ttf);
+	}
+	@font-face {
+		font-family: Segoemakb;
+		src: url(seguibl.ttf);
+	}
+	html {
+		background-color: #262626;
+	}
+	td {
+		text-align: center;
+		font-family: Segoemakb;
+		font-size: 4vh;
+		color: #FFF;
+	}
+	textarea {
+		height: 40vh;
+		background-color: #404040;
+		border-radius: 20px;
+		border-color: #606060;
+		border-style: solid;
+		text-align: center;
+		font-family: Segoemak;
+		color: #FFF;
+		font-size: 2vh;
+	}
+	table {
+		width: 70vw;
+		margin-left: 15vw;
+	}
+	button {
+		background-color: #404040;
+		border-radius: 20px;
+		border-color: #606060;
+		border-style: solid;
+		cursor: pointer;
+		font-family: Segoemakb;
+		color: #FFF;
+		font-size: 2vh;
+		height: 8vh;
+		width: 20vh;
+	}
+</style>
+<script type="text/javascript">
+	var finallist = [[],[],[[]]];
+	var swtch = 0;
+	var bcount = 0;
+	var nextreset = 0;
+
+	function outputt() {
+		document.getElementById("vs1").innerHTML = finallist[0][0];
+		document.getElementById("vs2").innerHTML = finallist[1][0];
+		bcount = 0;
+		rtxt = "";
+		for (let x of finallist[0]){
+			if (x == "-"){
+				bcount++;
+			}
+		}
+		document.getElementById("remain").innerHTML = finallist[0].length - bcount;
+		for (let r of finallist[2]){
+			rtxt += "<td>";
+			for (let re of r.reverse()){
+				rtxt += re + "<br>";
+			}
+			rtxt += "</td>";
+			r.reverse();
+		}
+		document.getElementById("results").innerHTML = rtxt;
+		console.log(finallist);
+	}
+
+	function importer(entries) {
+		entries = entries.split("\n");
+		entries.sort(function(){return 0.5 - Math.random()});
+		for (let v of entries){
+			finallist[swtch].push(v);
+			finallist[swtch].push("-");
+			if(swtch==0){
+				swtch = 1;
+			} else {
+				swtch = 0;
+			}
+		}
+		if(entries.length % 2 == 1){
+			finallist[1].push(["-"]);
+			finallist[1].push(["-"]);
+		}
+		outputt();
+	}
+
+	function winneris(winnernb,loosernb,vs1,vs2) {
+		if (nextreset == 1){
+			finallist[2] = [[]];
+			nextreset = 0;
+		}
+		finallist[2][finallist[2].length-1].push(finallist[loosernb][0]);
+		finallist[loosernb].splice(0, 1);
+		if(finallist[loosernb][0] == "-"){
+			while(finallist[winnernb][0] != "-"){
+				finallist[2][finallist[2].length-1].push(finallist[winnernb][0]);
+				finallist[winnernb].splice(0, 1);
+			}
+			finallist[0].splice(0, 1);
+			finallist[1].splice(0, 1);
+			finallist[2].push([]);
+			if (typeof finallist[0][0] == 'undefined'){
+				swtch = 0;
+				for (let r of finallist[2]){
+					for (let r2 of r){
+						finallist[swtch].push(r2);
+					}
+					finallist[swtch].push("-");
+					if(swtch==0){
+						swtch = 1;
+					} else {
+						swtch = 0;
+					}
+				}
+				nextreset = 1;
+				finallist[0].pop();
+			}
+		}
+		outputt();
+	}
+</script>
+<table>
+	<tr>
+		<td>
+			Entrées<br>
+			<textarea id="entries"></textarea><br>
+			<button style="margin-top: 2vh;margin-bottom: 4vh;" onclick="importer(document.getElementById('entries').value);">Importer</button>
+		</td>
+		<td id="fboard">
+			<button style="margin-right: 1vw;" id="vs1" onclick="winneris(0,1,this.value,document.getElementById('vs2').value);">Entrée 1</button>
+			VS
+			<button style="margin-left: 1vw;" id="vs2" onclick="winneris(1,0,document.getElementById('vs1').value,this.value);">Entrée 2</button><br><br>
+			Restant : <div id="remain"></div>
+		</td>
+	</tr>
+</table>
+<table>
+	<tr id="results">
+	</tr>
+</table>
