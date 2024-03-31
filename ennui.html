@@ -1,0 +1,132 @@
+<link rel="icon" href="imgs/flatmak.png" type="image/png">
+<title>/ennui</title>
+<style type="text/css">
+			html {font-weight: bold;background-color: #262626}
+			@font-face {
+				font-family: Segoemak;
+				src: url(SegoeUI.ttf);
+			}
+			@font-face {
+				font-family: Segoemakb;
+				src: url(seguibl.ttf);
+			}
+			ul {
+			  list-style-type: none;
+			  margin: auto;
+			  padding: 0;
+			  overflow: hidden;
+			  border: 0.1vw solid #606060;
+			  background-color: #404040;
+			  width: 90vw;
+			  height: 7vh;
+			}
+			li {
+			  font-family: Segoemakb;
+			  float: left;
+			  cursor: pointer;
+			  display: block;
+			  color: #fff;
+			  text-align: center;
+			  padding: 0.4vw 0.8vw;
+			  text-decoration: none;
+			  width: 28.4vw;
+			  font-size: 4vh;
+			  margin: auto;
+			}
+			button:hover, li:hover {
+			  background-color: #808080;
+			}
+			#btns {
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 8vh;
+				width: 90vw;
+				height: 78vh;
+				text-align: center;
+			}
+			button {
+				font-family: Segoemakb;
+				font-size: 3vh;
+				text-decoration: none;
+				color: #fff;
+				cursor: pointer;
+				background-color: #404040;
+				padding: 0.5vw 1vw;
+				border-radius: 1vw;
+				border-style: solid;
+				border-color: #606060;
+			}
+			#menu {
+				overflow: hidden;
+			}
+			.tabcontent {
+				display: none;
+			}
+			.bga {
+				background-color: #8040C0;
+				border-color: #6020A0;
+			}
+			.bga:hover {
+				background-color: #C080FF;
+			}
+			table {
+				margin-left: auto;
+				margin-right: auto;
+				width: 80vw;
+				height: 80vh;
+			}
+			td {
+				text-align: center;
+				width: 40vw;
+				vertical-align: text-top;
+			}
+			div {
+				margin-left: auto;
+				margin-right: auto;
+				width: 85vw;
+			}
+</style>
+<meta charset="utf-8">
+<ul id="menu"></ul>
+<div id="btns"></div>
+<script>
+	jsize = ["2J","3J+","J++"];
+	noms = [["b⛵ Bataille Navale ⛵","b🔴 Puissance 4 🟡","b⚫ Abalone ⚪","b⚫ Dames ⚪","b🔨 Dice Forge 🔨","b🛸 Martian Dice 🎲","♟️ Échecs ♟️","🎆 Hanabi 🎆","🥤 Pop Sauce ❔","🕵️ Codenames 🔠"],
+			["b🔨 Dice Forge 🔨","b🛸 Martian Dice 🎲","b🎴 6 qui prend ! 🐮","b🎴 Solo 🎴","b🔠 Concept ❔","b💀 Skull 🃏","b🎴 Papayoo 🃏","🎆 Hanabi 🎆","🥤 Pop Sauce ❔","🕵️ Codenames 🔠","🔠 Petit BAC 🔠","💣 Bomb Party 🔠","✏️ Skribbl.io ✏️","📽️ Use Your Words 📰","🏠 Monopoly 💸"],
+			["♟️ Échecs ♟️","🔞 CAH 😈","🐺 Wolfy 🕵️"]];
+	liens = [["battleship","connectfour","abalone","checkers","diceforge","martiandice","chess.com","hanab.live","jklm.fun","codenames.game"],
+			["diceforge","martiandice","sechsnimmt","solo","concept","skull","papayoo","hanab.live","jklm.fun","codenames.game","petitbac.net","jklm.fun","skribbl.io","wordsgame.lol","richup.io"],
+			["chess.com","limitelimiteenligne.com","wolfy.net/fr"]];
+	function loopmenu(item, index) {
+		document.getElementById("menu").innerHTML += "<li onclick='"+'openbtns("'+item+'")'+"'>"+item+"</li>";
+		var str = "<div id='"+item+"' class='tabcontent'><table><tr><td>";
+		var str2 = "";
+		for (var i = 0; i < noms[jsize.indexOf(item)].length; i++) {
+			if (noms[jsize.indexOf(item)][i][0] == "b") {
+				str2 = "<a href='https://boardgamearena.com/gamepanel?game="+liens[jsize.indexOf(item)][i]+"' target='_blank'><button class='bga'>"+noms[jsize.indexOf(item)][i].substring(1)+"</button></a><br><br><br>";
+				str += str2;
+				console.log("added");
+				if (noms[jsize.indexOf(item)][i+1][0] != "b") {
+					console.log("switch");
+					str += "</td><td>";
+				}
+			} else {
+				str2 = "<a href='https://"+liens[jsize.indexOf(item)][i]+"' target='_blank'><button>"+noms[jsize.indexOf(item)][i]+"</button></a><br><br><br>";
+				str += str2;
+				console.log("added");
+			}
+			console.log(str);
+		}
+		str += "</td></tr></table></div>"
+		document.getElementById("btns").innerHTML += str;
+	}
+	jsize.forEach(loopmenu);
+	function openbtns(camp) {
+		var i, tabcontent
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		document.getElementById(camp).style.display = "block";
+	};
+</script>
