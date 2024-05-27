@@ -1,150 +1,187 @@
+<!DOCTYPE html>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="icon" href="imgs/flatmak.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 <title>Ranker</title>
 <style type="text/css">
-	@font-face {
-		font-family: Segoemak;
-		src: url(SegoeUI.ttf);
-	}
-	@font-face {
-		font-family: Segoemakb;
-		src: url(seguibl.ttf);
-	}
-	html {
-		background-color: #262626;
-	}
-	td {
-		text-align: center;
-		font-family: Segoemakb;
-		font-size: 4vh;
-		color: #FFF;
-	}
-	textarea {
-		height: 40vh;
-		background-color: #404040;
-		border-radius: 20px;
-		border-color: #606060;
-		border-style: solid;
-		text-align: center;
-		font-family: Segoemak;
-		color: #FFF;
-		font-size: 2vh;
-	}
-	table {
-		width: 70vw;
-		margin-left: 15vw;
-	}
-	button {
-		background-color: #404040;
-		border-radius: 20px;
-		border-color: #606060;
-		border-style: solid;
-		cursor: pointer;
-		font-family: Segoemakb;
-		color: #FFF;
-		font-size: 2vh;
-		height: 8vh;
-		width: 20vh;
-	}
+  html {
+    background-color: #262626;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+  }
+  td {
+    text-align: center;
+    font-weight: 700;
+    font-size: 4vh;
+    color: #FFF;
+  }
+  textarea {
+    height: 40vh;
+    background-color: #404040;
+    border-radius: 20px;
+    border-color: #606060;
+    border-style: solid;
+    color: #FFF;
+    font-weight: 400;
+    font-size: 2vh;
+  }
+  table {
+    width: 85vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5vh;
+    table-layout: fixed;
+  }
+  tr {
+    border-bottom: 0px;
+  }
+  #results td {
+    font-size: 1.75vh;
+  }
 </style>
 <script type="text/javascript">
-	var finallist = [[],[],[[]]];
-	var swtch = 0;
-	var bcount = 0;
-	var nextreset = 0;
+  var finallist = [[],[],[[]]];
+  var swtch = 0;
+  var parts = 0;
+  var remaincount = [[0],[0]];
+  var nextreset = 0;
 
-	function outputt() {
-		document.getElementById("vs1").innerHTML = finallist[0][0];
-		document.getElementById("vs2").innerHTML = finallist[1][0];
-		bcount = 0;
-		rtxt = "";
-		for (let x of finallist[0]){
-			if (x == "-"){
-				bcount++;
-			}
-		}
-		document.getElementById("remain").innerHTML = finallist[0].length - bcount;
-		for (let r of finallist[2]){
-			rtxt += "<td>";
-			for (let re of r.reverse()){
-				rtxt += re + "<br>";
-			}
-			rtxt += "</td>";
-			r.reverse();
-		}
-		document.getElementById("results").innerHTML = rtxt;
-		console.log(finallist);
-	}
+  function resett(clearresults){
+    finallist = [[],[],[[]]];
+    swtch = 0;
+    parts = 0;
+    remaincount = [[0],[0]];
+    nextreset = 0;
+    document.getElementById("vs1").classList.add("disabled");
+    document.getElementById("vs2").classList.add("disabled");
+    document.getElementById("vs1").innerHTML = "Entrée 1";
+    document.getElementById("vs2").innerHTML = "Entrée 2";
+    document.getElementById("remain").innerHTML = "0 - 0";
+    if (clearresults){
+      document.getElementById("results").innerHTML = " ";
+    }
+  }
 
-	function importer(entries) {
-		entries = entries.split("\n");
-		entries.sort(function(){return 0.5 - Math.random()});
-		for (let v of entries){
-			finallist[swtch].push(v);
-			finallist[swtch].push("-");
-			if(swtch==0){
-				swtch = 1;
-			} else {
-				swtch = 0;
-			}
-		}
-		if(entries.length % 2 == 1){
-			finallist[1].push(["-"]);
-			finallist[1].push(["-"]);
-		}
-		outputt();
-	}
+  function outputt() {
+    document.getElementById("vs1").innerHTML = finallist[0][0];
+    document.getElementById("vs2").innerHTML = finallist[1][0];
+    document.getElementById("remain").innerHTML = remaincount[0].toString() + " - " + remaincount[1].toString();
+    rtxt = "<tr>";
+    tdcount = 0;
+    for (let r of finallist[2]){
+      rtxt += "<td>";
+      for (let re of r.reverse()){
+        rtxt += re + "<br>";
+      }
+      rtxt += "</td>";
+      r.reverse();
+      tdcount++;
+      if (tdcount%4 == 0){
+        rtxt += "</tr><tr></tr><tr>";
+      }
+    }
+    rtxt += "</tr>";
+    document.getElementById("results").innerHTML = rtxt;
+    M.textareaAutoResize(document.getElementById('entries'));
+    /*console.log(finallist);*/
+    if (finallist[1][0] == "-"){
+      resett(false);
+    }
+  }
 
-	function winneris(winnernb,loosernb,vs1,vs2) {
-		if (nextreset == 1){
-			finallist[2] = [[]];
-			nextreset = 0;
-		}
-		finallist[2][finallist[2].length-1].push(finallist[loosernb][0]);
-		finallist[loosernb].splice(0, 1);
-		if(finallist[loosernb][0] == "-"){
-			while(finallist[winnernb][0] != "-"){
-				finallist[2][finallist[2].length-1].push(finallist[winnernb][0]);
-				finallist[winnernb].splice(0, 1);
-			}
-			finallist[0].splice(0, 1);
-			finallist[1].splice(0, 1);
-			finallist[2].push([]);
-			if (typeof finallist[0][0] == 'undefined'){
-				swtch = 0;
-				for (let r of finallist[2]){
-					for (let r2 of r){
-						finallist[swtch].push(r2);
-					}
-					finallist[swtch].push("-");
-					if(swtch==0){
-						swtch = 1;
-					} else {
-						swtch = 0;
-					}
-				}
-				nextreset = 1;
-				finallist[0].pop();
-			}
-		}
-		outputt();
-	}
+  function importer(entries) {
+    resett(true);
+    entries = entries.split("\n");
+    entries.sort(function(){return 0.5 - Math.random()});
+    for (let v of entries){
+      finallist[swtch].push(v);
+      finallist[swtch].push("-");
+      if(swtch==0){
+        swtch = 1;
+      } else {
+        swtch = 0;
+      }
+      parts++;
+    }
+    if(entries.length % 2 == 1){
+      finallist[1].push(["-"]);
+      finallist[1].push(["-"]);
+    }
+    for (let x of [1,2,3,4,5,6,7]){
+      if(2**x == parts){
+        remaincount[0] = x*(parts/2);
+        remaincount[1] = [1,5,17,49,129][x-1];
+      }
+    }
+    document.getElementById("vs1").classList.remove("disabled");
+    document.getElementById("vs2").classList.remove("disabled");
+    outputt();
+  }
+
+  function winneris(winnernb,loosernb,vs1,vs2) {
+    if (nextreset == 1){
+      finallist[2] = [[]];
+      nextreset = 0;
+    }
+    finallist[2][finallist[2].length-1].push(finallist[loosernb][0]);
+    finallist[loosernb].splice(0, 1);
+    if(finallist[loosernb][0] == "-"){
+      while(finallist[winnernb][0] != "-"){
+        finallist[2][finallist[2].length-1].push(finallist[winnernb][0]);
+        finallist[winnernb].splice(0, 1);
+      }
+      finallist[0].splice(0, 1);
+      finallist[1].splice(0, 1);
+      finallist[2].push([]);
+      if (typeof finallist[0][0] == 'undefined'){
+        swtch = 0;
+        for (let r of finallist[2]){
+          for (let r2 of r){
+            finallist[swtch].push(r2);
+          }
+          finallist[swtch].push("-");
+          if(swtch==0){
+            swtch = 1;
+          } else {
+            swtch = 0;
+          }
+        }
+        nextreset = 1;
+        finallist[0].pop();
+      }
+    }
+    if (remaincount[0] != 0){
+      remaincount[0]--;
+    }
+    if (remaincount[1] != 0){
+      remaincount[1]--;
+    }
+    outputt();
+  }
 </script>
 <table>
-	<tr>
-		<td>
-			Entrées<br>
-			<textarea id="entries"></textarea><br>
-			<button style="margin-top: 2vh;margin-bottom: 4vh;" onclick="importer(document.getElementById('entries').value);">Importer</button>
-		</td>
-		<td id="fboard">
-			<button style="margin-right: 1vw;" id="vs1" onclick="winneris(0,1,this.value,document.getElementById('vs2').value);">Entrée 1</button>
-			VS
-			<button style="margin-left: 1vw;" id="vs2" onclick="winneris(1,0,document.getElementById('vs1').value,this.value);">Entrée 2</button><br><br>
-			Restant : <div id="remain"></div>
-		</td>
-	</tr>
+  <tr>
+    <td style="width: 25vw;">
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="entries" class="materialize-textarea" style="border-bottom: 1px solid #ff9800;box-shadow: 0 1px 0 0 #424242;"></textarea>
+          <label style="color: #ff9800;" for="entries">Entrées</label>
+        </div>
+      </div>
+      <a class="waves-effect waves-light btn-large orange" style="margin-bottom: 4vh;" onclick="importer(document.getElementById('entries').value);"><i class="material-icons left"><img src="imgs/publish.svg"/></i>Importer</a>
+      <a class="waves-effect waves-light btn-large orange" style="margin-bottom: 4vh;" onclick="resett(true);"><i class="material-icons left"><img src="imgs/reset.svg"/></i>Reset</a>
+    </td>
+    <td id="fboard">
+      <a class="waves-effect waves-light btn-large orange disabled" style="margin-right: 1vw;" id="vs1" onclick="winneris(0,1,this.value,document.getElementById('vs2').value);">Entrée 1</a>
+      VS
+      <a class="waves-effect waves-light btn-large orange disabled" style="margin-left: 1vw;" id="vs2" onclick="winneris(1,0,document.getElementById('vs1').value,this.value);">Entrée 2</a><br><br>
+      Restant : <div id="remain">0 - 0</div>
+    </td>
+  </tr>
 </table>
-<table>
-	<tr id="results">
-	</tr>
-</table>
+<table class="centered" style="width: 99vw;table-layout: fixed;" id="results"></table>
+<script type="text/javascript" src="js/materialize.min.js"></script>
