@@ -1,0 +1,121 @@
+<head>
+	
+	<script src="https://releases.jquery.com/git/jquery-git.min.js"></script>
+	<style type="text/css">
+		@font-face {
+			font-family: Segoemak;
+			src: url(seguibl.ttf);
+		}
+		html {
+			font-family: Segoemak;
+			background-color: #262626;
+		}
+		table {
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+			color: #FFF;
+		}
+		td {
+			font-family: Segoemak;
+			height: 15vh;
+		}
+		input {
+			font-family: Segoemak;
+			height: 8vh;
+			width: 80vw;
+			font-size: 3vh;
+			background-color: #404040;
+			border-radius: 20px;
+			border-color: #606060;
+			border-style: solid;
+			color: #FFF;
+			text-align: center;
+		}
+		button {
+			font-family: Segoemak;
+			height: 8vh;
+			width: 20vh;
+			font-size: 3vh;
+			background-color: #404070;
+			border-radius: 20px;
+			border-color: #606060;
+			border-style: solid;
+			cursor: pointer;
+			color: #FFF;
+			padding: 1vw;
+		}
+		#title {
+			font-size: 6vh;
+		}
+		#toast {
+		  background-color: #407040;
+		  visibility: hidden;
+		  width: 60vw;
+		  left: 20%;
+		  color: #fff;
+		  font-size: 3vh;
+		  text-align: center;
+		  border-radius: 20px;
+		  padding: 16px;
+		  position: fixed;
+		  z-index: 1;
+		  bottom: 30px;
+		}
+
+		#toast.show {
+		  visibility: visible;
+		  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+		  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+		}
+
+		@-webkit-keyframes fadein {
+		  from {bottom: 0; opacity: 0;}
+		  to {bottom: 30px; opacity: 1;}
+		}
+
+		@keyframes fadein {
+		  from {bottom: 0; opacity: 0;}
+		  to {bottom: 30px; opacity: 1;}
+		}
+
+		@-webkit-keyframes fadeout {
+		  from {bottom: 30px; opacity: 1;}
+		  to {bottom: 0; opacity: 0;}
+		}
+
+		@keyframes fadeout {
+		  from {bottom: 30px; opacity: 1;}
+		  to {bottom: 0; opacity: 0;}
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<table>
+
+		<tr><td id="title">CGForm</td></tr>
+		<tr><td><input type="text" id="name" placeholder="Pseudo"></td></tr>
+		<tr><td><input type="text" id="content" placeholder="Réponse"></td></tr>
+		<tr><td><button>Envoyer</button></td></tr>
+		
+	</table>
+	<div id="toast">Réponse envoyée !</div>
+	<script type="text/javascript">
+		$("button").click(function(){
+			$.post("https://discord.com/api/webhooks/1359963759963148448/15jR5mY0qrk99p32lldB19yqa2HBCzhHDO5lfu5-htComUgv7KdWV9QV3ccS2q6HRRjD",{
+															content: "**"+document.getElementById("name").value+" : **"+document.getElementById("content").value,
+															username : "CGForm"
+														}
+			);
+			document.getElementById("content").value = "";
+			var x = document.getElementById("toast");
+			x.className = "show";
+			setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+		});
+
+	</script>
+
+</body>
