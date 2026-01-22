@@ -1,0 +1,166 @@
+<head>
+	<title>Event Ranker</title>
+	<link rel="icon" href="imgs/flatmak.png" type="image/png">
+	<script src="https://releases.jquery.com/git/jquery-git.min.js"></script>
+	<style type="text/css">
+		@font-face {
+			font-family: Segoemak;
+			src: url(seguibl.ttf);
+		}
+		@font-face {
+			font-family: Segoebase;
+			src: url(SegoeUI.ttf);
+		}
+		html {
+			font-family: Segoemak;
+			background-color: #262626;
+		}
+		table {
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+			color: #FFF;
+			width: 50vh;
+		}
+		td {
+			font-family: Segoemak;
+			height: 5vh;
+		}
+		input {
+			font-family: Segoemak;
+			height: 6vh;
+			width: 18vh;
+			font-size: 2vh;
+			background-color: #404040;
+			border-radius: 20px;
+			border-color: #606060;
+			border-style: solid;
+			color: #FFF;
+			text-align: center;
+			margin-left: 2vh;
+		}
+		textarea {
+			font-family: Segoebase;
+			font-size: 2vh;
+			background-color: #404040;
+			border-color: #606060;
+			border-style: solid;
+			color: #FFF;
+			vertical-align: top;
+			width: 35vh;
+			height: 80vh;
+		}
+		button {
+			font-family: Segoemak;
+			height: 6vh;
+			width: 9vh;
+			font-size: 2vh;
+			background-color: #404070;
+			border-radius: 20px;
+			border-color: #606060;
+			border-style: solid;
+			cursor: pointer;
+			color: #FFF;
+			margin-left: 1vh;
+		}
+		button:hover {
+			background-color: #407040;
+		}
+		#title {
+			font-size: 4vh;
+		}
+		#sheetslink {
+			font-size: 3vh;
+			color: #6255cc;
+		}
+		#sheetslink:hover {
+			color: #407040;
+		}
+		#toast {
+		  visibility: hidden;
+		  width: 60vw;
+		  left: 20%;
+		  color: #fff;
+		  font-size: 3vh;
+		  text-align: center;
+		  border-radius: 20px;
+		  padding: 16px;
+		  position: fixed;
+		  z-index: 1;
+		  bottom: 30px;
+		}
+
+		#toast.show {
+		  visibility: visible;
+		  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.6s;
+		  animation: fadein 0.5s, fadeout 0.5s 2.6s;
+		}
+
+		@-webkit-keyframes fadein {
+		  from {bottom: 0; opacity: 0;}
+		  to {bottom: 30px; opacity: 1;}
+		}
+
+		@keyframes fadein {
+		  from {bottom: 0; opacity: 0;}
+		  to {bottom: 30px; opacity: 1;}
+		}
+
+		@-webkit-keyframes fadeout {
+		  from {bottom: 30px; opacity: 1;}
+		  to {bottom: 0; opacity: 0;}
+		}
+
+		@keyframes fadeout {
+		  from {bottom: 30px; opacity: 1;}
+		  to {bottom: 0; opacity: 0;}
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<table>
+
+		<tr><td id="title"><p style="margin-bottom: 3vh;">Event ranker</p></td><td><p style="margin-bottom: 3vh;"><a id="sheetslink" target="_blank" href="https://docs.google.com/spreadsheets/d/15X5_Tbhr4iMGECMJqxmQigBugfpCxEplPamxzLPDrsA/edit?gid=1030090298">Rankings Sheet</a></p></td></tr>
+		<tr><td rowspan="3" align="center" valign="top"><textarea id="rank" placeholder="Make shure to meet the requirements of the competition you rank, you can check this on the sheet linked in the top right&#10;&#10;For wilcard competitions or eliminations, put your rank here separated by line breaks&#10;&#10;Artist1&#10;Artist2&#10;Artist3&#10;...&#10;&#10;You can also add battle predictions, with scores, OTs or just the result.&#10;Make sure to align scores with artists' order&#10;&#10;Artist1 VS Artist2 Artist1&#10;Artist3 VS Artist4 5-0&#10;Artist5 VS Artist6 OT 2-3"></textarea></td><td align="center" valign="top"><input type="text" id="name" placeholder="Name"><br><br><br><input type="text" id="comp" placeholder="Competition"><br><br><br><button>Submit</button></td></tr>
+		<tr><td></td></tr>
+		<tr><td></td></tr>
+		
+	</table>
+	<div id="toast"></div>
+	<script type="text/javascript">
+		$("button").click(function(){
+			if (document.getElementById("name").value.length >= 1) {
+				if (document.getElementById("comp").value.length >= 3) {
+					if (document.getElementById("rank").value.length >= 10) {
+						$.post("https://discord.com/api/webhooks/1463694912422936714/vTcB708qrcedFm--hFERkFk9xhznCs2pGcIs9uc9VEAn5Mg6lKzK4WBlfg1TnGn0hPR7",{
+																		content: "**"+document.getElementById("name").value+"** rank for **"+document.getElementById("comp").value+"**\n\n"+document.getElementById("rank").value,
+																		username : "Event Ranker"
+																	}
+						);
+						document.getElementById("name").value = "";
+						document.getElementById("toast").style = "background-color: #407040;";
+						document.getElementById("toast").innerHTML = "Rank submitted !";
+					} else {
+						document.getElementById("toast").style = "background-color: #704040;";
+						document.getElementById("toast").innerHTML = "Rank is invalid";
+					}
+				} else {
+					document.getElementById("toast").style = "background-color: #704040;";
+					document.getElementById("toast").innerHTML = "Competition name is invalid";
+				}
+			} else {
+				document.getElementById("toast").style = "background-color: #704040;";
+				document.getElementById("toast").innerHTML = "Name is missing";
+			}
+
+			var x = document.getElementById("toast");
+			x.className = "show";
+			setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+		});
+
+	</script>
+
+</body>
