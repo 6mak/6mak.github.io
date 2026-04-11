@@ -1,0 +1,81 @@
+<head>
+	
+	<script src="https://releases.jquery.com/git/jquery-git.min.js"></script>
+	<style type="text/css">
+		@font-face {
+			font-family: Segoemak;
+			src: url(seguibl.ttf);
+		}
+		html {
+			font-family: Segoemak;
+			background-color: #262626;
+		}
+		table {
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+			color: #FFF;
+		}
+		td {
+			font-family: Segoemak;
+			height: 15vh;
+		}
+		button {
+			font-family: Segoemak;
+			height: 8vh;
+			width: 20vh;
+			font-size: 3vh;
+			background-color: #404070;
+			border-radius: 20px;
+			border-color: #606060;
+			border-style: solid;
+			cursor: pointer;
+			color: #FFF;
+			padding: 1vw;
+		}
+		#title {
+			font-size: 6vh;
+		}
+		button:hover {
+			background-color: #407040;
+		}
+		#draw {
+			font-size: 5vh;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<table>
+
+		<tr><td id="title">GTB</td></tr>
+		<tr><td><button>Tirer</button></td></tr>
+		<tr><td><div id="draw"></div></td></tr>
+		
+	</table>
+	<script type="text/javascript">
+
+		var indx = -1;
+		var bbxlist = ["808Banon","Abo Ice","Alem","Alexinho","AVH","B-Art","Babeli","Balance","Ball-Zee","Bataco","Beat Rhino","Beatness","BigBen","Bigman","BizKit","Blackroll","Bly Crepsley","BMG","Bookie Blanco","BP","BreZ","Cardona","Chris Celiz","Chris TheOdian","CJ","Cloud","Codfish","Colaps","D-Koy","D-low","Deity","Den","DgyMie","Dharni","Dice","Dilip","Dropical","Duncan","Efaybee","Elisii","Exallos","Faya Braz","FootboxG","FriiDon","Frosty","Gene Shinozaki","H-has","Heartzel","Helium","Hiss","Improver","Inkie","Jayton","Josh O","JP","Julard","Junno","K.I.M.","Kaji","Kaos","KBA","Kenny Urban","King Inertia","Kohey","Lennard","Lennsi","LFO","M-Age","Mahiro","Mark Martin","Martin Benati","Marvelous","Matej","Max","MaxO","MB14","Mirsa","momimaru","Mr. Androide","NaPoM","Nils","NME","Osis","PACMax","Pash","Piratheeban","Pono","Raje","Remix","River'","Robin","Rusy","Rythmind","Saro","Scott Jackson","Show-Go","SkilleR","Slizzer","So-So","Steady","Stitch","Supernova","Sxin","SyJo","Tatsuya","Thorsen","Tioneb","Trung Bao","Two.H","Vahtang","Saint Villain","Vocodah","Waali","Watt","Wawad","WinG","Yaswede","ZeDe","Zekka","Zer0","Zhang Ze","ZVD"];
+
+		bbxlist.sort(function(){return 0.5 - Math.random()});
+
+		$("button").click(function(){
+
+			console.log(indx);
+
+			indx = indx + 1;
+			if (indx == bbxlist.length){
+				bbxlist.sort(function(){return 0.5 - Math.random()});
+				indx = 0;
+			}
+			
+			document.getElementById("draw").innerHTML = bbxlist[indx];
+
+		});
+
+	</script>
+
+</body>
